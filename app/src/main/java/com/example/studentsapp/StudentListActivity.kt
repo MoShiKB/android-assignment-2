@@ -1,8 +1,6 @@
 package com.example.studentsapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studentsapp.adapter.StudentListAdapter
 import com.example.studentsapp.model.Student
 import com.example.studentsapp.repository.StudentRepository
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class StudentListActivity : AppCompatActivity() {
 
@@ -27,7 +24,6 @@ class StudentListActivity : AppCompatActivity() {
         setupWindowInsets()
         initRecyclerView()
         loadStudentData()
-        setupAddButton()
     }
 
     private fun initToolbar() {
@@ -48,9 +44,7 @@ class StudentListActivity : AppCompatActivity() {
         val recycler: RecyclerView = findViewById(R.id.student_list_recycler)
         recycler.layoutManager = LinearLayoutManager(this)
 
-        listAdapter = StudentListAdapter(allStudents) { selectedStudent ->
-            openStudentDetails(selectedStudent)
-        }
+        listAdapter = StudentListAdapter(allStudents) { }
         recycler.adapter = listAdapter
     }
 
@@ -59,27 +53,8 @@ class StudentListActivity : AppCompatActivity() {
         listAdapter.refreshData(allStudents)
     }
 
-    private fun openStudentDetails(student: Student) {
-        Toast.makeText(this, "Selected: ${student.fullName}", Toast.LENGTH_SHORT).show()
-        // TODO: Navigate to StudentDetailsActivity when implemented
-        // val detailsIntent = Intent(this, StudentDetailsActivity::class.java)
-        // detailsIntent.putExtra("STUDENT_ID", student.studentId)
-        // startActivity(detailsIntent)
-    }
-
-    private fun setupAddButton() {
-        val addButton: FloatingActionButton = findViewById(R.id.student_list_add_btn)
-        addButton.setOnClickListener {
-            Toast.makeText(this, "Add new student", Toast.LENGTH_SHORT).show()
-            // TODO: Navigate to AddStudentActivity when implemented
-            // val addIntent = Intent(this, AddStudentActivity::class.java)
-            // startActivity(addIntent)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         loadStudentData()
     }
 }
-
