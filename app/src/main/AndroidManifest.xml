@@ -22,6 +22,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".NewStudentActivity"
+            android:exported="false"
+            android:parentActivityName=".StudentListActivity" />
+
     </application>
 
 </manifest>

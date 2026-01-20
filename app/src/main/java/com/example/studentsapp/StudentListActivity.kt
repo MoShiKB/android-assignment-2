@@ -1,5 +1,6 @@
 package com.example.studentsapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studentsapp.adapter.StudentListAdapter
 import com.example.studentsapp.model.Student
 import com.example.studentsapp.repository.StudentRepository
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class StudentListActivity : AppCompatActivity() {
 
@@ -24,6 +26,7 @@ class StudentListActivity : AppCompatActivity() {
         setupWindowInsets()
         initRecyclerView()
         loadStudentData()
+        setupAddButton()
     }
 
     private fun initToolbar() {
@@ -51,6 +54,14 @@ class StudentListActivity : AppCompatActivity() {
     private fun loadStudentData() {
         allStudents = StudentRepository.fetchAllStudents()
         listAdapter.refreshData(allStudents)
+    }
+
+    private fun setupAddButton() {
+        val addButton: FloatingActionButton = findViewById(R.id.student_list_add_btn)
+        addButton.setOnClickListener {
+            val intent = Intent(this, NewStudentActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
