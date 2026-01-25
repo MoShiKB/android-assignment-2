@@ -26,6 +26,15 @@
             android:name=".NewStudentActivity"
             android:exported="false"
             android:parentActivityName=".StudentListActivity" />
+        <activity
+            android:name=".StudentDetailsActivity"
+            android:exported="false"
+            android:parentActivityName=".StudentListActivity" />
+
+        <activity
+            android:name=".EditStudentActivity"
+            android:exported="false"
+            android:parentActivityName=".StudentDetailsActivity" />
 
     </application>
 
