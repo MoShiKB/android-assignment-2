@@ -8,6 +8,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.studentsapp.repository.StudentRepository
@@ -23,6 +24,14 @@ class StudentDetailsActivity : AppCompatActivity() {
     private lateinit var addressTv: TextView
     private lateinit var checkedCb: CheckBox
     private lateinit var editBtn: Button
+
+    private val editLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +66,7 @@ class StudentDetailsActivity : AppCompatActivity() {
         editBtn.setOnClickListener {
             val intent = Intent(this, EditStudentActivity::class.java)
             intent.putExtra(EditStudentActivity.EXTRA_ORIGINAL_ID, studentId)
-            startActivity(intent)
+            editLauncher.launch(intent)
         }
     }
 
@@ -67,6 +76,7 @@ class StudentDetailsActivity : AppCompatActivity() {
     }
 
     private fun loadStudent() {
+        if (isFinishing) return
         val student = StudentRepository.findStudentById(studentId)
         if (student == null) {
             Toast.makeText(this, "Student not found (maybe deleted)", Toast.LENGTH_SHORT).show()

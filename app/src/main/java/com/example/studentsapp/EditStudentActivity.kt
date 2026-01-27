@@ -54,6 +54,7 @@ class EditStudentActivity : AppCompatActivity() {
             val removed = StudentRepository.removeStudent(originalId)
             if (removed) {
                 Toast.makeText(this, "Student deleted", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
                 finish()
             } else {
                 Toast.makeText(this, "Student not found", Toast.LENGTH_SHORT).show()
@@ -83,6 +84,7 @@ class EditStudentActivity : AppCompatActivity() {
             val success = StudentRepository.modifyStudent(originalId, updated)
             if (success) {
                 Toast.makeText(this, "Student updated", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
                 finish()
             } else {
                 Toast.makeText(this, "Update failed (maybe ID already exists?)", Toast.LENGTH_SHORT).show()
