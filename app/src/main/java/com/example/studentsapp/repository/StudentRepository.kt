@@ -37,13 +37,18 @@ object StudentRepository {
 
     fun modifyStudent(originalId: String, updatedStudent: Student): Boolean {
         val index = studentsList.indexOfFirst { it.studentId == originalId }
-        if (index == -1) {
-            return false
+        if (index == -1) return false
+
+        val isIdChanged = updatedStudent.studentId != originalId
+        if (isIdChanged) {
+            val idTaken = studentsList.any { it.studentId == updatedStudent.studentId }
+            if (idTaken) return false
         }
-        studentsList.removeAt(index)
-        studentsList.add(index, updatedStudent)
+
+        studentsList[index] = updatedStudent
         return true
     }
+
 
     fun removeStudent(id: String): Boolean {
         return studentsList.removeIf { it.studentId == id }

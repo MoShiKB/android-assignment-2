@@ -47,7 +47,12 @@ class StudentListActivity : AppCompatActivity() {
         val recycler: RecyclerView = findViewById(R.id.student_list_recycler)
         recycler.layoutManager = LinearLayoutManager(this)
 
-        listAdapter = StudentListAdapter(allStudents) { }
+        listAdapter = StudentListAdapter(allStudents) { student ->
+            val intent = Intent(this, StudentDetailsActivity::class.java)
+            intent.putExtra(StudentDetailsActivity.EXTRA_STUDENT_ID, student.studentId)
+            startActivity(intent)
+        }
+
         recycler.adapter = listAdapter
     }
 
